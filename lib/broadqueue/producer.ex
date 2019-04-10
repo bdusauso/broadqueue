@@ -2,6 +2,7 @@ defmodule Broadqueue.Producer do
   use Broadway
 
   alias Broadway.Message
+  alias Broadqueue.{Event, Repo}
 
   def start_link(_opts) do
     Broadway.start_link(__MODULE__,
@@ -33,7 +34,21 @@ defmodule Broadqueue.Producer do
 
   @impl true
   def handle_batch(:storage, messages, _batch_info, _context) do
-    IO.inspect(messages, label: "Received batch")
+    events =
+      messages
+      |> Stream.map(&(&1.data))
+      |> Stream.map(&Jason.decode!/1)
+      |> Stream.map(&atomize_keys/1)
+      |> Enum.to_list
+
+    Repo.insert_all(Event, events)
+
     messages
+  end
+
+  defp atomize_keys(map = %{}) do
+    map
+    |> Enum.map(fn {k, v} -> {String.to_atom(k), v} end)
+    |> Enum.into(%{})
   end
 end
