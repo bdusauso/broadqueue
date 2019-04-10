@@ -9,6 +9,7 @@ defmodule Broadqueue.Application do
     # List all child processes to be supervised
     children = [
       # Starts a worker by calling: Broadqueue.Worker.start_link(arg)
+      {Broadqueue.Repo, []},
       {Broadqueue.Producer, []}
     ]
 

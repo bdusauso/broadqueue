@@ -5,3 +5,8 @@ services:
     ports:
       - "15671-15672:15671-15672"
       - "5671-5672:5671-5672"
+
+  postgres:
+    image: postgres:10
+    ports:
+      - "5432:5432"
