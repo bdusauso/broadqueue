@@ -5,14 +5,25 @@ defmodule Broadqueue.Producer do
   alias Broadqueue.{Event, Repo}
 
   def start_link(_opts) do
+    batch_size =
+      case System.get_env("BATCH_SIZE") do
+        nil ->
+          100
+
+        string_size ->
+          String.to_integer(string_size)
+      end
+
     Broadway.start_link(__MODULE__,
       name: __MODULE__,
       producers: [
         default: [
-          module: {BroadwayRabbitMQ.Producer,
+          module: {
+            BroadwayRabbitMQ.Producer,
             queue: "broadway",
+            qos: [prefetch_count: batch_size]
           },
-          stages: 1
+          stages: 1,
         ]
       ],
       processors: [
@@ -21,7 +32,7 @@ defmodule Broadqueue.Producer do
         ]
       ],
       batchers: [
-        storage: [stages: 1, batch_size: 10]
+        storage: [stages: 1, batch_size: batch_size]
       ]
     )
   end
