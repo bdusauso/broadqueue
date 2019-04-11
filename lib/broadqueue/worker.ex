@@ -1,4 +1,4 @@
-defmodule Broadqueue.Producer do
+defmodule Broadqueue.Worker do
   use Broadway
 
   alias Broadway.Message

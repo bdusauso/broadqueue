@@ -10,7 +10,7 @@ defmodule Broadqueue.Application do
     children = [
       # Starts a worker by calling: Broadqueue.Worker.start_link(arg)
       {Broadqueue.Repo, []},
-      {Broadqueue.Producer, []}
+      {Broadqueue.Worker, []}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
