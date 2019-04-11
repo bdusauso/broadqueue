@@ -1,21 +1,19 @@
 # Broadqueue
 
-**TODO: Add description**
+Experiment with Broadway/RabbitMQ
 
-## Installation
+## Introduction
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `broadqueue` to your list of dependencies in `mix.exs`:
+I often have the use-case of fetching messages from RabbitMQ, processing them and storing them in the database, *while keeping their order at the same time*. 
+That implies only one consumer - thus no concurrency - and very limited throughput. 
+I've tried many solution but the best fit for this specific use-case was to use _batch processing_ and _batch insert_ into the database.
 
-```elixir
-def deps do
-  [
-    {:broadqueue, "~> 0.1.0"}
-  ]
-end
-```
+I've never found a good solution by myself. That is until [GenStage](https://github.com/elixir-lang/gen_stage) came out. And then [Broadway](https://github.com/plataformatec/broadway)
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/broadqueue](https://hexdocs.pm/broadqueue).
+## Use
 
+* Clone this repository;
+* Launch `docker-compose -d up`;
+* Setup the database: `mix ecto.setup`;
+* Publish some messages: `mix publish_messages --count 100000`
+* Consume the messages: `mix run --no-halt`
