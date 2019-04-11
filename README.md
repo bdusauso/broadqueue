@@ -10,7 +10,7 @@ I've tried many solution but the best fit for this specific use-case was to use 
 
 I've never found a good solution by myself. That is until [GenStage](https://github.com/elixir-lang/gen_stage) came out. And then [Broadway](https://github.com/plataformatec/broadway)
 
-## Use
+## Usage
 
 * Clone this repository;
 * Launch `docker-compose -d up`;
