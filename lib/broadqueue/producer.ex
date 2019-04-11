@@ -40,21 +40,21 @@ defmodule Broadqueue.Producer do
   @impl true
   def handle_message(_, message, _) do
     message
+    |> Message.update_data(&process_data/1)
     |> Message.put_batcher(:storage)
   end
 
   @impl true
   def handle_batch(:storage, messages, _batch_info, _context) do
-    events =
-      messages
-      |> Stream.map(&(&1.data))
-      |> Stream.map(&Jason.decode!/1)
-      |> Stream.map(&atomize_keys/1)
-      |> Enum.to_list
-
-    Repo.insert_all(Event, events)
+    Repo.insert_all(Event, Enum.map(messages, &(&1.data)))
 
     messages
+  end
+
+  defp process_data(data) do
+    data
+    |> Jason.decode!
+    |> atomize_keys
   end
 
   defp atomize_keys(map = %{}) do
