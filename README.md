@@ -17,3 +17,7 @@ I've never found a good solution by myself. That is until [GenStage](https://git
 * Setup the database: `mix ecto.setup`;
 * Publish some messages: `mix publish_messages --count 100000`
 * Consume the messages: `mix run --no-halt`
+
+### Batch size
+
+By default the batch size is 100 but you can modify it by setting the `BATCH_SIZE` environment variable: `BATCH_SIZE=250 mix run --no-halt` 
