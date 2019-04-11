@@ -21,3 +21,9 @@ I've never found a good solution by myself. That is until [GenStage](https://git
 ### Batch size
 
 By default the batch size is 100 but you can modify it by setting the `BATCH_SIZE` environment variable: `BATCH_SIZE=250 mix run --no-halt` 
+
+## TODO List
+
+- [ ] Handle errors (put faulty messages into a _dead letter queue_)
+- [ ] More processing, like encryption
+- [ ] Telemetry
