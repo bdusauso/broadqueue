@@ -30,6 +30,7 @@ defmodule Broadqueue.MixProject do
   defp deps do
     [
       {:broadway_rabbitmq, "~> 0.1.0"},
+      {:flow, "~> 0.14.3"},
       {:jason, "~> 1.1"},
       {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"}
