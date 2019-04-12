@@ -1,7 +1,7 @@
 defmodule Mix.Tasks.PublishMessages do
   use Mix.Task
 
-  @shortdoc "Publish 100.000 messages to RabbitMQ"
+  @shortdoc "Publish messages to RabbitMQ"
   def run(args) do
     case parse_cli_args(args) do
       {:ok, {count, fault_ratio}} ->
