@@ -22,8 +22,15 @@ I've never found a good solution by myself. That is until [GenStage](https://git
 
 By default the batch size is 100 but you can modify it by setting the `BATCH_SIZE` environment variable: `BATCH_SIZE=250 mix run --no-halt` 
 
+### Faulty messages generation
+
+You can create messages that will raise an error when decoded by the JSON parser thanks to the `--fault-ratio` switch from the _mix_ task.
+The argument is a number from 0 to 100 and is the probability, in percentage, of generating a faulty message. 
+Its value is 0 by default.
+
 ## TODO List
 
+- [x] Faulty message injection
 - [ ] Handle errors (put faulty messages into a _dead letter queue_)
 - [ ] More processing, like encryption
 - [ ] Telemetry
