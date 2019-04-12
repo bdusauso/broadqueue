@@ -31,6 +31,6 @@ Its value is 0 by default.
 ## TODO List
 
 - [x] Faulty message injection
-- [ ] Handle errors (put faulty messages into a _dead letter queue_)
+- [x] Handle errors (put faulty messages into a _dead letter queue_)
 - [ ] More processing, like encryption
 - [ ] Telemetry
