@@ -40,7 +40,7 @@ defmodule Broadqueue.Worker do
   @impl true
   def handle_message(_, message, _) do
     message
-    |> Message.update_data(&process_data/1)
+    |> Message.update_data(&decode_data/1)
     |> Message.put_batcher(:storage)
   end
 
@@ -51,7 +51,7 @@ defmodule Broadqueue.Worker do
     messages
   end
 
-  defp process_data(data) do
+  defp decode_data(data) do
     data
     |> Jason.decode!
     |> atomize_keys
