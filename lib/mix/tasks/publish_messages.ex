@@ -1,6 +1,8 @@
 defmodule Mix.Tasks.PublishMessages do
   use Mix.Task
 
+  @chunk_size 10_000
+
   @shortdoc "Publish messages to RabbitMQ"
   def run(args) do
     case parse_cli_args(args) do
@@ -12,7 +14,6 @@ defmodule Mix.Tasks.PublishMessages do
         AMQP.Queue.bind(chan, "broadway", "default")
         AMQP.Confirm.select(chan)
         publish_messages(chan, count, fault_ratio)
-        AMQP.Confirm.wait_for_confirms(chan)
 
       :error ->
         Mix.Shell.IO.error("Usage: mix publish_messages --count <messages_count> --fault-ratio <percentage>")
@@ -21,7 +22,13 @@ defmodule Mix.Tasks.PublishMessages do
 
   defp publish_messages(chan, count, fault_ratio) do
     (1..count)
-    |> Enum.each(fn i -> AMQP.Basic.publish chan, "default", "", generate_payload(i, fault_ratio) end)
+    |> Stream.chunk_every(@chunk_size)
+    |> Enum.each(&(publish_chunk(&1, chan, fault_ratio)))
+  end
+
+  defp publish_chunk(chunk, chan, fault_ratio) do
+    Enum.each(chunk, &(AMQP.Basic.publish chan, "default", "", generate_payload(&1, fault_ratio)))
+    AMQP.Confirm.wait_for_confirms(chan)
   end
 
   defp generate_payload(count, fault_ratio) do
