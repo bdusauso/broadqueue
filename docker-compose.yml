@@ -8,5 +8,8 @@ services:
 
   postgres:
     image: postgres:10
+    environment:
+      POSTGRES_USER: broadqueue
+      POSTGRES_PASSWORD: broadqueue
     ports:
       - "5432:5432"

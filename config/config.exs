@@ -3,9 +3,9 @@
 use Mix.Config
 
 config :broadqueue, Broadqueue.Repo,
-  database: "broadqueue_repo",
-  username: "postgres",
-  password: "postgres",
+  database: "broadqueue",
+  username: "broadqueue",
+  password: "broadqueue",
   hostname: "localhost"
 
   config :broadqueue, ecto_repos: [
