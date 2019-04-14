@@ -13,7 +13,7 @@ I've never found a good solution by myself. That is until [GenStage](https://git
 ## Usage
 
 * Clone this repository;
-* Launch `docker-compose -d up`;
+* Launch `docker-compose up -d`;
 * Setup the database: `mix ecto.setup`;
 * Publish some messages: `mix publish_messages --count 100000`
 * Consume the messages: `mix run --no-halt`
