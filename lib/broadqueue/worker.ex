@@ -62,7 +62,7 @@ defmodule Broadqueue.Worker do
       |> Enum.sort_by(fn {_, index} -> index end)
       |> Enum.map(fn {message, _} -> message.data end)
 
-    Repo.insert_all(Event, events)
+    Repo.insert_all(Event, events, on_conflict: :nothing)
 
     messages
   end
