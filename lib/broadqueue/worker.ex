@@ -22,7 +22,9 @@ defmodule Broadqueue.Worker do
           module: {
             BroadwayRabbitMQ.Producer,
             queue: "broadway",
-            qos: [prefetch_count: batch_size]
+            qos: [prefetch_count: batch_size],
+            metadata: [:headers],
+            requeue: :never
           },
           stages: 1,
         ]
