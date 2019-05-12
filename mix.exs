@@ -29,7 +29,7 @@ defmodule Broadqueue.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:broadway_rabbitmq, github: "bdusauso/broadway_rabbitmq", branch: "amqp-headers"},
+      {:broadway_rabbitmq, "~> 0.2"},
       {:flow, "~> 0.14.3"},
       {:jason, "~> 1.1"},
       {:ecto_sql, "~> 3.0"},
