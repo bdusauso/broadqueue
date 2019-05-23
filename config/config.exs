@@ -28,7 +28,12 @@ config :broadqueue, Broadqueue.Repo,
 #
 # You can also configure a third-party app:
 #
-#     config :logger, level: :info
+config :logger, 
+  level: :info,
+  format: "\n$time [$level] $levelpad$metadata $message",
+  metadata: [:module, :pid],
+  handle_otp_reports: false,
+  colors: [enabled: false]
 #
 
 # It is also possible to import configuration files, relative to this
